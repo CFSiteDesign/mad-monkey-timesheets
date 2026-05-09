@@ -72,7 +72,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Mad Monkey Timesheets — Designer Time Logger" },
+      { title: "Mad Monkey Timesheets" },
       {
         name: "description",
         content:
@@ -86,6 +86,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
+      { name: "twitter:title", content: "Mad Monkey Timesheets" },
+      { name: "description", content: "Internal timesheet portal for the Mad Monkey design team. Log job references, file links, tools used and time spent in seconds." },
+      { property: "og:description", content: "Internal timesheet portal for the Mad Monkey design team. Log job references, file links, tools used and time spent in seconds." },
+      { name: "twitter:description", content: "Internal timesheet portal for the Mad Monkey design team. Log job references, file links, tools used and time spent in seconds." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/6c0ae071-4cdf-4f17-8287-006788a0b076/id-preview-8fc34ac4--9aa06d49-defa-4fe6-be23-07f590986d2a.lovable.app-1778330217713.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/6c0ae071-4cdf-4f17-8287-006788a0b076/id-preview-8fc34ac4--9aa06d49-defa-4fe6-be23-07f590986d2a.lovable.app-1778330217713.png" },
     ],
     links: [
       {
