@@ -14,7 +14,36 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      timesheets: {
+        Row: {
+          created_at: string | null
+          file_link: string
+          id: string
+          job_reference: string
+          synced_to_sheet: boolean | null
+          time_spent: string
+          tool_used: string
+        }
+        Insert: {
+          created_at?: string | null
+          file_link: string
+          id?: string
+          job_reference: string
+          synced_to_sheet?: boolean | null
+          time_spent: string
+          tool_used: string
+        }
+        Update: {
+          created_at?: string | null
+          file_link?: string
+          id?: string
+          job_reference?: string
+          synced_to_sheet?: boolean | null
+          time_spent?: string
+          tool_used?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
