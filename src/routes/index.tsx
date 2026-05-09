@@ -197,14 +197,21 @@ function Index() {
 
       {/* Footer */}
       <footer className="w-full flex flex-col items-center pb-4 pt-0 -mt-4">
-        <span className="text-[11px] uppercase tracking-[0.18em] text-white/60 mb-[-4px]">
+        <span className="text-[11px] uppercase tracking-[0.18em] text-white/60 mb-[-14px]">
           Powered by
         </span>
-        <img
-          src={theoroxLogo}
-          alt="TheoroX"
-          className="max-h-12 w-auto opacity-90"
-        />
+        <a
+          href="https://theorox.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="transition-opacity hover:opacity-100"
+        >
+          <img
+            src={theoroxLogo}
+            alt="TheoroX"
+            className="max-h-12 w-auto opacity-90"
+          />
+        </a>
       </footer>
     </main>
   );
