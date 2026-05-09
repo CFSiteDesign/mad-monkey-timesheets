@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState, type FormEvent } from "react";
 import madMonkeyLogo from "@/assets/mad-monkey-logo.webp";
 import theoroxLogo from "@/assets/theorox-logo.png";
+import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/")({
   component: Index,
