@@ -30,13 +30,21 @@ function Index() {
   const [status, setStatus] = useState<Status>("idle");
   const [errors, setErrors] = useState<Record<string, boolean>>({});
 
+  const normalizeUrl = (v: string) => {
+    const trimmed = v.trim();
+    if (!trimmed) return "";
+    return /^https?:\/\//i.test(trimmed) ? trimmed : `https://${trimmed}`;
+  };
+
   const validate = () => {
     const e: Record<string, boolean> = {};
     if (!jobReference.trim()) e.jobReference = true;
-    if (!fileLink.trim()) e.fileLink = true;
+    const normalized = normalizeUrl(fileLink);
+    if (!normalized) e.fileLink = true;
     else {
       try {
-        new URL(fileLink);
+        const u = new URL(normalized);
+        if (!u.hostname.includes(".")) e.fileLink = true;
       } catch {
         e.fileLink = true;
       }
@@ -58,7 +66,7 @@ function Index() {
         headers: { "Content-Type": "text/plain;charset=utf-8" },
         body: JSON.stringify({
           jobReference,
-          fileLink,
+          fileLink: normalizeUrl(fileLink),
           toolUsed,
           timeSpent,
           timestamp: new Date().toISOString(),
