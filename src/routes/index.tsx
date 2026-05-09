@@ -15,7 +15,7 @@ export const Route = createFileRoute("/")({
 
 // ============================================================
 // PASTE YOUR GOOGLE APPS SCRIPT WEB APP URL HERE
-const APPS_SCRIPT_URL = "https://script.google.com/macros/s/REPLACE_ME/exec";
+const APPS_SCRIPT_URL = "https://script.google.com/a/macros/madmonkeyhostels.com/s/AKfycbwr9nBt_iO2KVpdf4uBGQ6SgPCcdEtVOfZ2xkyPOSF6aqCbf6YkLVrr9f0s2Im4hNdT/exec";
 // ============================================================
 
 const TIME_OPTIONS = ["30 mins", "1 hr", "1 hr 30 mins", "2 hrs", "2 hrs 30 mins"];
