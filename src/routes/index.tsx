@@ -32,6 +32,8 @@ const TIME_OPTIONS = ["30 mins", "1 hr", "1 hr 30 mins", "2 hrs", "2 hrs 30 mins
 
 type Status = "idle" | "submitting" | "success" | "error";
 
+
+
 function Index() {
   const [jobReference, setJobReference] = useState("");
   const [fileLink, setFileLink] = useState("");
