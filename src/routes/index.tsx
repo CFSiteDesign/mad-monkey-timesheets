@@ -32,12 +32,15 @@ const TIME_OPTIONS = ["30 mins", "1 hr", "1 hr 30 mins", "2 hrs", "2 hrs 30 mins
 
 type Status = "idle" | "submitting" | "success" | "error";
 
+
+
 function Index() {
   const [jobReference, setJobReference] = useState("");
   const [fileLink, setFileLink] = useState("");
   const [toolUsed, setToolUsed] = useState("");
   const [timeSpent, setTimeSpent] = useState("");
   const [status, setStatus] = useState<Status>("idle");
+  const [errorMessage, setErrorMessage] = useState<string>("");
   const [errors, setErrors] = useState<Record<string, boolean>>({});
 
   const normalizeUrl = (v: string) => {
@@ -69,19 +72,31 @@ function Index() {
     ev.preventDefault();
     if (!validate()) return;
     setStatus("submitting");
+    setErrorMessage("");
+    const payload = {
+      jobReference,
+      fileLink: normalizeUrl(fileLink),
+      toolUsed,
+      timeSpent,
+      timestamp: new Date().toISOString(),
+    };
+    console.log("[timesheet] submitting payload", payload);
     try {
-      await fetch(APPS_SCRIPT_URL, {
+      const response = await fetch(APPS_SCRIPT_URL, {
         method: "POST",
-        mode: "no-cors",
-        headers: { "Content-Type": "text/plain;charset=utf-8" },
-        body: JSON.stringify({
-          jobReference,
-          fileLink: normalizeUrl(fileLink),
-          toolUsed,
-          timeSpent,
-          timestamp: new Date().toISOString(),
-        }),
+        mode: "cors",
+        headers: {
+          "Content-Type": "text/plain;charset=utf-8",
+        },
+        body: JSON.stringify(payload),
       });
+      console.log("[timesheet] response received", response.status, response.statusText);
+      if (!response.ok) {
+        const text = await response.text().catch(() => "");
+        throw new Error(`HTTP ${response.status} ${response.statusText} ${text}`.trim());
+      }
+      const text = await response.text().catch(() => "");
+      console.log("[timesheet] response body", text);
       setJobReference("");
       setFileLink("");
       setToolUsed("");
@@ -89,9 +104,12 @@ function Index() {
       setErrors({});
       setStatus("success");
       setTimeout(() => setStatus("idle"), 2500);
-    } catch {
+    } catch (err) {
+      const message = err instanceof Error ? err.message : String(err);
+      console.error("[timesheet] submission failed", err);
+      setErrorMessage(message);
       setStatus("error");
-      setTimeout(() => setStatus("idle"), 2500);
+      setTimeout(() => setStatus("idle"), 6000);
     }
   };
 
@@ -218,10 +236,14 @@ function Index() {
             )}
           </button>
 
-          <div className="h-5 text-center text-xs text-white transition-opacity duration-500"
+          <div className="min-h-[1.25rem] text-center text-xs transition-opacity duration-500"
                style={{ opacity: status === "success" || status === "error" ? 1 : 0 }}>
-            {status === "success" && "Logged"}
-            {status === "error" && "Submission failed. Try again."}
+            {status === "success" && <span className="text-white">Logged</span>}
+            {status === "error" && (
+              <span className="text-red-400 break-words">
+                {errorMessage || "Submission failed. Try again."}
+              </span>
+            )}
           </div>
         </form>
       </div>
