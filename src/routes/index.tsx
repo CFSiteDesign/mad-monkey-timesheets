@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState, type FormEvent } from "react";
 import madMonkeyLogo from "@/assets/mad-monkey-logo.webp";
 import theoroxLogo from "@/assets/theorox-logo.png";
+import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -22,11 +23,6 @@ export const Route = createFileRoute("/")({
     ],
   }),
 });
-
-// ============================================================
-// PASTE YOUR GOOGLE APPS SCRIPT WEB APP URL HERE
-const APPS_SCRIPT_URL = "https://script.google.com/a/macros/madmonkeyhostels.com/s/AKfycbwr9nBt_iO2KVpdf4uBGQ6SgPCcdEtVOfZ2xkyPOSF6aqCbf6YkLVrr9f0s2Im4hNdT/exec";
-// ============================================================
 
 const TIME_OPTIONS = ["30 mins", "1 hr", "1 hr 30 mins", "2 hrs", "2 hrs 30 mins"];
 
@@ -74,23 +70,16 @@ function Index() {
     setStatus("submitting");
     setErrorMessage("");
     const payload = {
-      jobReference,
-      fileLink: normalizeUrl(fileLink),
-      toolUsed,
-      timeSpent,
-      timestamp: new Date().toISOString(),
+      job_reference: jobReference,
+      file_link: normalizeUrl(fileLink),
+      tool_used: toolUsed,
+      time_spent: timeSpent,
     };
-    console.log("[timesheet] submitting payload", payload);
+    console.log("[timesheet] inserting", payload);
     try {
-      await fetch(APPS_SCRIPT_URL, {
-        method: "POST",
-        mode: "no-cors",
-        headers: {
-          "Content-Type": "text/plain;charset=utf-8",
-        },
-        body: JSON.stringify(payload),
-      });
-      console.log("[timesheet] request sent (no-cors, response opaque)");
+      const { error } = await supabase.from("timesheets").insert(payload);
+      if (error) throw error;
+      console.log("[timesheet] inserted ok");
       setJobReference("");
       setFileLink("");
       setToolUsed("");
@@ -100,7 +89,7 @@ function Index() {
       setTimeout(() => setStatus("idle"), 2500);
     } catch (err) {
       const message = err instanceof Error ? err.message : String(err);
-      console.error("[timesheet] submission failed", err);
+      console.error("[timesheet] insert failed", err);
       setErrorMessage(message);
       setStatus("error");
       setTimeout(() => setStatus("idle"), 6000);
