@@ -82,21 +82,15 @@ function Index() {
     };
     console.log("[timesheet] submitting payload", payload);
     try {
-      const response = await fetch(APPS_SCRIPT_URL, {
+      await fetch(APPS_SCRIPT_URL, {
         method: "POST",
-        mode: "cors",
+        mode: "no-cors",
         headers: {
           "Content-Type": "text/plain;charset=utf-8",
         },
         body: JSON.stringify(payload),
       });
-      console.log("[timesheet] response received", response.status, response.statusText);
-      if (!response.ok) {
-        const text = await response.text().catch(() => "");
-        throw new Error(`HTTP ${response.status} ${response.statusText} ${text}`.trim());
-      }
-      const text = await response.text().catch(() => "");
-      console.log("[timesheet] response body", text);
+      console.log("[timesheet] request sent (no-cors, response opaque)");
       setJobReference("");
       setFileLink("");
       setToolUsed("");
