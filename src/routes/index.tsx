@@ -75,23 +75,16 @@ function Index() {
     setStatus("submitting");
     setErrorMessage("");
     const payload = {
-      jobReference,
-      fileLink: normalizeUrl(fileLink),
-      toolUsed,
-      timeSpent,
-      timestamp: new Date().toISOString(),
+      job_reference: jobReference,
+      file_link: normalizeUrl(fileLink),
+      tool_used: toolUsed,
+      time_spent: timeSpent,
     };
-    console.log("[timesheet] submitting payload", payload);
+    console.log("[timesheet] inserting", payload);
     try {
-      await fetch(APPS_SCRIPT_URL, {
-        method: "POST",
-        mode: "no-cors",
-        headers: {
-          "Content-Type": "text/plain;charset=utf-8",
-        },
-        body: JSON.stringify(payload),
-      });
-      console.log("[timesheet] request sent (no-cors, response opaque)");
+      const { error } = await supabase.from("timesheets").insert(payload);
+      if (error) throw error;
+      console.log("[timesheet] inserted ok");
       setJobReference("");
       setFileLink("");
       setToolUsed("");
@@ -101,7 +94,7 @@ function Index() {
       setTimeout(() => setStatus("idle"), 2500);
     } catch (err) {
       const message = err instanceof Error ? err.message : String(err);
-      console.error("[timesheet] submission failed", err);
+      console.error("[timesheet] insert failed", err);
       setErrorMessage(message);
       setStatus("error");
       setTimeout(() => setStatus("idle"), 6000);
