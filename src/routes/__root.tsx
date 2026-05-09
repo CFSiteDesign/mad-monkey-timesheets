@@ -72,14 +72,20 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "Mad Monkey Timesheets — Designer Time Logger" },
+      {
+        name: "description",
+        content:
+          "Internal timesheet portal for the Mad Monkey design team. Log job references, file links, tools used and time spent in seconds.",
+      },
+      { name: "author", content: "Mad Monkey" },
+      { property: "og:title", content: "Mad Monkey Timesheets" },
+      {
+        property: "og:description",
+        content: "Fast, minimalist time logging for Mad Monkey designers.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
     ],
     links: [
       {
