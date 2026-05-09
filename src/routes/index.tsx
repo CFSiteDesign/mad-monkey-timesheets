@@ -102,7 +102,38 @@ function Index() {
     errors[key] ? "border-red-500/70" : "border-white/20";
 
   return (
-    <main className="min-h-screen bg-black text-white flex flex-col">
+    <main className="min-h-screen bg-black text-white flex flex-col relative">
+      {status === "success" && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm pointer-events-none animate-fade-in">
+          <div className="flex flex-col items-center gap-4 animate-scale-in">
+            <div className="w-20 h-20 rounded-full border-2 border-white flex items-center justify-center">
+              <svg
+                viewBox="0 0 52 52"
+                className="w-12 h-12"
+                fill="none"
+                stroke="white"
+                strokeWidth="3"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path
+                  d="M14 27 L23 36 L40 18"
+                  style={{
+                    strokeDasharray: 60,
+                    strokeDashoffset: 60,
+                    animation: "checkDraw 0.5s ease-out 0.15s forwards",
+                  }}
+                />
+              </svg>
+            </div>
+            <span className="text-xs uppercase tracking-[0.3em] text-white">
+              Logged
+            </span>
+          </div>
+          <style>{`@keyframes checkDraw { to { stroke-dashoffset: 0; } }`}</style>
+        </div>
+      )}
+
       <div className="flex-1 flex flex-col items-center px-6 pt-12 pb-8">
         {/* Header */}
         <header className="w-full max-w-[480px] flex flex-col items-center">
