@@ -236,10 +236,14 @@ function Index() {
             )}
           </button>
 
-          <div className="h-5 text-center text-xs text-white transition-opacity duration-500"
+          <div className="min-h-[1.25rem] text-center text-xs transition-opacity duration-500"
                style={{ opacity: status === "success" || status === "error" ? 1 : 0 }}>
-            {status === "success" && "Logged"}
-            {status === "error" && "Submission failed. Try again."}
+            {status === "success" && <span className="text-white">Logged</span>}
+            {status === "error" && (
+              <span className="text-red-400 break-words">
+                {errorMessage || "Submission failed. Try again."}
+              </span>
+            )}
           </div>
         </form>
       </div>
