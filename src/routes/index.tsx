@@ -196,7 +196,7 @@ function Index() {
       </div>
 
       {/* Footer */}
-      <footer className="w-full flex flex-col items-center gap-2 pb-8 pt-4">
+      <footer className="w-full flex flex-col items-center gap-2 pb-4 pt-0 -mt-4">
         <span className="text-[11px] uppercase tracking-[0.18em] text-white/60">
           Powered by
         </span>
