@@ -7,8 +7,18 @@ export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
     meta: [
-      { title: "Mad Monkey Timesheets" },
-      { name: "description", content: "Internal timesheet portal for Mad Monkey designers." },
+      { title: "Mad Monkey Timesheets — Designer Time Logger" },
+      {
+        name: "description",
+        content:
+          "Internal timesheet portal for the Mad Monkey design team. Log job references, file links, tools used and time spent in seconds.",
+      },
+      { property: "og:title", content: "Mad Monkey Timesheets" },
+      {
+        property: "og:description",
+        content:
+          "Fast, minimalist time logging for Mad Monkey designers.",
+      },
     ],
   }),
 });
