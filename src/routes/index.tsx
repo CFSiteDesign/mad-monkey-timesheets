@@ -99,7 +99,7 @@ function Index() {
           <img
             src={madMonkeyLogo}
             alt="Mad Monkey"
-            className="max-h-[60px] w-auto invert"
+            className="max-h-[72px] w-auto invert"
           />
           <h1 className="mt-6 text-xs sm:text-sm font-medium uppercase tracking-[0.25em] text-white text-center">
             Mad Monkey Timesheets
@@ -187,12 +187,14 @@ function Index() {
 
       {/* Footer */}
       <footer className="w-full flex flex-col items-center gap-2 pb-8 pt-4">
+        <span className="text-[11px] uppercase tracking-[0.18em] text-white/60">
+          Powered by
+        </span>
         <img
           src={theoroxLogo}
           alt="TheoroX"
           className="max-h-6 w-auto opacity-90"
         />
-        <p className="text-[11px] text-white/60">Powered by TheoroX</p>
       </footer>
     </main>
   );
