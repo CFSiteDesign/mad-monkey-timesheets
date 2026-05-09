@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState, type FormEvent } from "react";
-import madMonkeyLogo from "@/assets/mad-monkey-logo.png";
+import madMonkeyLogo from "@/assets/mad-monkey-logo.webp";
 import theoroxLogo from "@/assets/theorox-logo.png";
 
 export const Route = createFileRoute("/")({
